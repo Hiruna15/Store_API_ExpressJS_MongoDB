@@ -3,6 +3,8 @@ import express from "express";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 import notFound from "./middleware/not-found.js";
 import connectDB from "./db/connect.js";
+import productRouter from "./routes/products.js";
+// import "express-async-errors";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,7 +13,7 @@ app.get("/", (req, res) => {
   res.send("<h1>Store API</h1><a href='/api/vi/products'>products route</a>");
 });
 
-// app.use("/api/v1/products");
+app.use("/api/v1/products", productRouter);
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);
