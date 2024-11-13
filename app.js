@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 import notFound from "./middleware/not-found.js";
+import connectDB from "./db/connect.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,7 +16,8 @@ app.use(errorHandlerMiddleware);
 
 const start = async () => {
   try {
-    //connecting to mongoDB
+    await connectDB(process.env.MONGO_URI);
+    console.log("Connected to the DB");
     app.listen(port, () => {
       console.log(`Server is litenening on port ${port}`);
     });
